@@ -140,6 +140,13 @@ module Medusa
         page.links.first.to_s.should == SPEC_DOMAIN
       end
 
+      it 'removes trailing spaces' do
+        links = '<a href="/extra_space "</a>'
+        page = @http.fetch_page(FakePage.new('', :body => links).url)
+        page.links.should have(1).link
+        page.links.first.to_s.should == SPEC_DOMAIN + 'extra_space'
+      end
+
       it 'should not return rails ujs links with data-method attribute' do
         body = '<a data-method="delete" href="/delete_me">Something</a>' \
                '<a data-method="patch" href="/patch_me">Something</a>' \

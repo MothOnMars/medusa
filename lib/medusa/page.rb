@@ -155,7 +155,7 @@ module Medusa
       return nil if link.nil?
 
       # remove anchor
-      link = URI.encode(URI.decode(link.to_s.gsub(/#.*$/,'')))
+      link = URI.encode(URI.decode(link.to_s.rstrip.gsub(/#.*$/,'')))
 
       relative = URI(link)
       absolute = base ? base.merge(relative) : @url.merge(relative)
